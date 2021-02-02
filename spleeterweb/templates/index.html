@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/index.css">
+    <title>Spleeterweb</title>
+  </head>
+  <body>
+    <h1>🎶 Spleeterweb 🎶</h1>
+    <div class="subhead_text">
+      Split your audio files into stems with <a target=_blank href="https://github.com/deezer/spleeter">spleeter</a>.
+    </div>
+    <div class="card">
+      <h2>Input</h2>
+      <form method="POST" enctype=multipart/form-data>
+        <div>
+          <label for="input_file">File to spleet:</label>
+          <input type="file" id="input_file" name="input_file">
+        </div>
+        <div>
+          <label for="model">Model: </label>
+          <select name="model" id="model">
+            <option value="2stem">2 Stem</option>
+            <option value="4stem">4 Stem</option>
+            <option value="5stem">5 Stem</option>
+          </select>
+        </div>
+        <div>
+          <button>Spleet!</button>
+        </div>
+      </form>
+    </div>
+    <div class=card>
+      <h2>Output</h2>
+      <div>
+        {% if output %}
+          {{output}}
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

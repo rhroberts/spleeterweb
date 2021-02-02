@@ -1,8 +1,9 @@
 import os
 
-from flask import Flask, send_file, request
+from flask import Flask, send_file, request, render_template
 from werkzeug.utils import secure_filename
 
+from spleeterweb import spleeter
 
 def create_app(test_config=None):
     # create and configure the app
@@ -21,19 +22,18 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    STATIC_DIR = app.config["STATIC_DIR"]
-
     # a simple page that says hello
     @app.route("/", methods=["GET", "POST"])
     def application_root():
+        result = None
         if request.method == "POST":
             print(request.form)
             if "input_file" in request.files:
                 input_file = request.files["input_file"]
                 print(secure_filename(input_file.filename))
+                result = spleeter.split(input_file, "2stem")
             else:
                 print("no `input_file` id found")
-
-        return send_file(os.path.join(STATIC_DIR, "index.html"), mimetype="text/html")
+        return render_template("index.html", output=result)
 
     return app

@@ -8,7 +8,6 @@ authors = ["Rusty Roberts <rust.roberts@protonmail.com>"]
 python = "3.6.1"
 spleeter = "^2.1.2"
 Flask = "^1.1.2"
-flake8 = "^3.8.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
