@@ -30,7 +30,6 @@ def create_app(test_config=None):
             print(request.form)
             if "input_file" in request.files:
                 input_file = request.files["input_file"]
-                print(secure_filename(input_file.filename))
                 result = spleeter.split(input_file, "2stem")
             else:
                 print("no `input_file` id found")
