@@ -17,13 +17,8 @@ h1 {
 
 h2 {
   margin-top: -12px;
-  padding-bottom: 6px;
   font-size: x-large;
   text-align: center;
-  border: 0px;
-  border-bottom: 4px;
-  border-style: solid;
-  border-color: rgba(40, 40, 40, 1);
 }
 
 div {
@@ -35,6 +30,11 @@ button {
   display: flex;
 }
 
+input, select {
+  margin-left: 3px;
+  margin-right: 24px;
+}
+
 a {
   color: #ffd137;
 }
@@ -44,6 +44,7 @@ a {
   padding: 24px;
   padding-bottom: 0px;
   max-width: 500px;
+  min-width: 500px;
   margin: auto;
   margin-bottom: 12px;
   border-style: solid;

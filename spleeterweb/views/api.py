@@ -12,5 +12,5 @@ def spleet_file(file, sample_rate, model):
     prediction = split(file, sample_rate, model)
     stems = {}
     for stem in prediction:
-        sample_rate, wav = prediction[stem]
+        sr, wav = prediction[stem]
 

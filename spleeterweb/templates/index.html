@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/static/favicon.ico">
-    <link rel="stylesheet" href="/static/index.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <title>Spleeterweb</title>
   </head>
   <body>
@@ -25,19 +25,24 @@
             <option value="4stem">4 Stem</option>
             <option value="5stem">5 Stem</option>
           </select>
+          <label for="sample_rate">Sample Rate: </label>
+          <select name="sample_rate" id="sample_rate">
+            <option value=44100>44100</option>
+            <option value=48000>48000</option>
+          </select>
         </div>
         <div>
           <button>Spleet!</button>
         </div>
       </form>
     </div>
+    {% if output %}
     <div class=card>
       <h2>Output</h2>
       <div>
-        {% if output %}
           {{output}}
-        {% endif %}
       </div>
     </div>
+    {% endif %}
   </body>
 </html>
