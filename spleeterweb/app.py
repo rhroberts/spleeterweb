@@ -1,5 +1,6 @@
 import os
-
+import tempfile
+from scipy.io import wavfile
 from flask import Flask, send_file, request, render_template
 from werkzeug.utils import secure_filename
 
@@ -22,7 +23,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
     @app.route("/", methods=["GET", "POST"])
     def application_root():
         result = None
@@ -30,9 +30,21 @@ def create_app(test_config=None):
             print(request.form)
             if "input_file" in request.files:
                 input_file = request.files["input_file"]
-                result = spleeter.split(input_file, "2stem")
+                prediction = spleeter.split(input_file, "2stems")
+                with tempfile.TemporaryDirectory() as output_dir:
+                    output_files = {}
+                    print(output_dir)
+                    for stem in prediction:
+                        output_files[stem] = tempfile.NamedTemporaryFile(
+                            dir=output_dir
+                        )
+                        wavfile.write(
+                            output_files[stem].name, 44100, output_files[stem]
+                        )
             else:
                 print("no `input_file` id found")
-        return render_template("index.html", output=result)
+            return render_template("index.html", output=prediction.keys())
+        else:
+            return render_template("index.html")
 
     return app
