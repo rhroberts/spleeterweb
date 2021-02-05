@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Spleeterweb</title>
   </head>
   <body>
@@ -21,9 +22,9 @@
         <div>
           <label for="model">Model: </label>
           <select name="model" id="model">
-            <option value="2stem">2 Stem</option>
-            <option value="4stem">4 Stem</option>
-            <option value="5stem">5 Stem</option>
+            <option value="2stems">2 Stems</option>
+            <option value="4stems">4 Stems</option>
+            <option value="5stems">5 Stems</option>
           </select>
           <label for="sample_rate">Sample Rate: </label>
           <select name="sample_rate" id="sample_rate">
@@ -32,16 +33,18 @@
           </select>
         </div>
         <div>
-          <button>Spleet!</button>
+          <button type="submit">Spleet!</button>
         </div>
       </form>
     </div>
     {% if output %}
-    <div class=card>
-      <h2>Output</h2>
-      <div>
-          {{output}}
-      </div>
+    <div class="card">
+      <h2>Download Stems</h2>
+      {% for stem in output %}
+      <form method="POST" action="{{ url_for('output', stemfile=output[stem]) }}">
+        <button type="submit" class="stem">{{ stem }}<i class="fa fa-download"></i></button>
+      </form>
+      {% endfor %}
     </div>
     {% endif %}
   </body>

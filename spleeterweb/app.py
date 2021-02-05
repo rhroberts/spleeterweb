@@ -1,7 +1,7 @@
 import os
 import tempfile
 from scipy.io import wavfile
-from flask import Flask, send_file, request, render_template
+from flask import Flask, send_from_directory, request, render_template
 from werkzeug.utils import secure_filename
 
 from spleeterweb import spleeter
@@ -25,26 +25,33 @@ def create_app(test_config=None):
 
     @app.route("/", methods=["GET", "POST"])
     def application_root():
-        result = None
         if request.method == "POST":
-            print(request.form)
+            model = request.form["model"]
+            sample_rate = int(request.form["sample_rate"])
+            output_paths = {"vocals": 10, "piano": 12}
             if "input_file" in request.files:
-                input_file = request.files["input_file"]
-                prediction = spleeter.split(input_file, "2stems")
-                with tempfile.TemporaryDirectory() as output_dir:
-                    output_files = {}
-                    print(output_dir)
-                    for stem in prediction:
-                        output_files[stem] = tempfile.NamedTemporaryFile(
-                            dir=output_dir
-                        )
-                        wavfile.write(
-                            output_files[stem].name, 44100, output_files[stem]
-                        )
+                buffer = request.files["input_file"]
+                with tempfile.NamedTemporaryFile(dir=app.config["INPUT_DIR"]) as f:
+                    buffer.save(f)
+                    prediction = spleeter.split(f, sample_rate, model)
+                output_paths = {}
+                for stem in prediction:
+                    with tempfile.NamedTemporaryFile(
+                        dir=app.config["OUTPUT_DIR"], delete=False
+                    ) as f:
+                        wavfile.write(f.name, sample_rate, prediction[stem])
+                        output_paths[stem] = os.path.basename(f.name)
             else:
                 print("no `input_file` id found")
-            return render_template("index.html", output=prediction.keys())
+            return render_template("index.html", output=output_paths)
         else:
             return render_template("index.html")
+
+    @app.route("/output/<stemfile>", methods=["GET", "POST"])
+    def output(stemfile):
+        return send_from_directory(
+            app.config["OUTPUT_DIR"], stemfile, as_attachment=False,
+            mimetype="audio/wav"
+        )
 
     return app

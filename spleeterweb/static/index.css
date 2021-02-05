@@ -28,23 +28,35 @@ div {
 button {
   margin: auto;
   display: flex;
+  cursor: pointer;
+}
+
+button.stem {
+  margin-bottom: 12px;
 }
 
 input, select {
   margin-left: 3px;
   margin-right: 24px;
+  cursor: pointer;
 }
 
 a {
-  color: #ffd137;
+  color: lightskyblue;
+  text-decoration: none;
+}
+
+i.fa-download {
+  margin-left: 6px;
+  font-size: large;
 }
 
 .card {
   font-size: x-large;
   padding: 24px;
   padding-bottom: 0px;
-  max-width: 500px;
-  min-width: 500px;
+  max-width: 550px;
+  min-width: 550px;
   margin: auto;
   margin-bottom: 12px;
   border-style: solid;
