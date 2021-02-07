@@ -41,8 +41,11 @@
     <div class="card">
       <h2>Download Stems</h2>
       {% for stem in output %}
-      <form method="POST" action="{{ url_for('output', stemfile=output[stem]) }}">
-        <button type="submit" class="stem">{{ stem }}<i class="fa fa-download"></i></button>
+      <audio controls>
+        <source src={{ url_for('output', temp_dir=output[stem][0], stemfile=output[stem][1]) }} type="audio/wav">
+      </audio>
+      <form method="POST" action="{{ url_for('output', temp_dir=output[stem][0], stemfile=output[stem][1]) }}">
+        <button class="stem">{{ stem }}<i class="fa fa-download"></i></button>
       </form>
       {% endfor %}
     </div>

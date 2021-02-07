@@ -2,27 +2,38 @@ html, body {
   font-family: Serif;
   font-size: x-large;
   background-color: #353535;
-  color: #ffd137;
+  color: rgba(230, 230, 230, 1);
   padding-top: 24px;
 }
 
 h1 {
   padding: 4px;
   text-align: center;
-  border-style: solid;
-  border: 0px;
-  border-bottom: 3px;
-  border-color: #ffd137;
+  color: #ffd137;
 }
 
 h2 {
   margin-top: -12px;
   font-size: x-large;
   text-align: center;
+  color: #ffd137;
+}
+
+h3 {
+  font-size: large;
+  text-align: center;
+  color: rgba(230, 230, 230, 1);
+  margin-top: 0px;
 }
 
 div {
   padding: 12px;
+}
+
+audio {
+  margin: auto;
+  margin-bottom: 0px;
+  display: flex;
 }
 
 button {
@@ -32,7 +43,8 @@ button {
 }
 
 button.stem {
-  margin-bottom: 12px;
+  margin-top: 6px;
+  margin-bottom: 24px;
 }
 
 input, select {
@@ -47,8 +59,8 @@ a {
 }
 
 i.fa-download {
-  margin-left: 6px;
   font-size: large;
+  margin-left: 6px;
 }
 
 .card {
